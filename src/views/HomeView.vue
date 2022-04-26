@@ -10,14 +10,14 @@
       </div>
     </div>
 
-    <form @submit.prevent="SearchQuotes()" class="search-box">
+    <!-- <form @submit.prevent="SearchQuotes()" class="search-box">
       <input class="year-input" type="text" placeholder="Enter a year..." v-model="search" />
       <input class="search-button" type="submit" value="SEARCH" />
-    </form>
+    </form> -->
     <br>
     <div class="quotes-list">
           <h1>LIST OF KIMI'S QUOTES</h1>
-      <div class="quotes-table">
+      <!-- <div class="quotes-table">
         <table>
           <tbody>
             <tr v-for="quote in quotes" :key="quote.id">
@@ -29,18 +29,85 @@
             </tr>
           </tbody>
         </table>
-      </div>
+      </div> -->
     </div>
+
+    <!-- DATA GRID -->
+
+     <DxDataGrid id="quotes-table" class="quotes-table" :data-source="quotes"
+            key-expr="id"  :show-row-lines="true"
+            :show-column-lines="false"
+            :show-borders="true"
+            @row-click="getDetail">
+
+        
+        <DxPager
+            :visible="true"
+            :allowed-page-sizes="pageSizes"
+            :display-mode="displayMode"
+            :show-page-size-selector="showPageSizeSelector"
+            :show-info="showInfo"
+            :show-navigation-buttons="showNavButtons"
+        />
+        
+        <DxFilterRow :visible="showFilterRow" :apply-filter="currentFilter"/>
+        <DxHeaderFilter :visible="showHeaderFilter" />
+        <DxSearchPanel :visible="true" :width="300" placeholder="Search..."/>
+
+        <!-- quote -->
+        <DxColumn
+            :width="1200"
+            :calculate-filter-expression="calculateFilterExpression"
+            data-field="quote"
+            alignment="center"
+            caption="Quote"
+            
+        >
+        </DxColumn>
+
+        <!-- year -->
+        <DxColumn :width="200"
+            data-field="year"
+            alignment="center"
+            caption="Year"
+            @click="getDetail"
+        >
+        </DxColumn>
+    </DxDataGrid>
+
+
   </div>
 </template>
 
 <script>
 import axios from 'axios'
-import { ref } from 'vue';
+//import { ref } from 'vue';
+
+import {
+  DxDataGrid,
+  DxColumn,
+  DxHeaderFilter,
+  DxSearchPanel,
+  DxFilterRow,
+  //DxScrolling,
+  DxPager,
+  //DxPaging
+} from "devextreme-vue/data-grid";
+import 'devextreme/dist/css/dx.light.css';
 
 export default ({
+  components: {
+    DxDataGrid,
+    DxColumn,
+    DxHeaderFilter,
+    DxSearchPanel,
+    DxFilterRow,
+    //DxScrolling,
+    DxPager,
+    //DxPaging
+  },
   setup () {
-    const search = ref("");
+    /* const search = ref("");
     const quotes = ref([]);
     const SearchQuotes = () => {
         fetch(`https://kimiquotes.herokuapp.com/quotes/${search.value}`)
@@ -56,11 +123,25 @@ export default ({
               quotes.value = data;
           }
         })
-    }
-     return {
+    } */
+     /* return {
+      quotes: [],
       search,
       quotes,
       SearchQuotes
+      } */
+  },
+  data () {
+    return {
+      quotes: [],
+      displayModes: [{ text: 'Display Mode \'full\'', value: 'full' }, { text: 'Display Mode \'compact\'', value: 'compact' }],
+        displayMode: 'full',
+        pageSizes: [5, 10, 'all'],
+        showPageSizeSelector: true,
+        showInfo: true,
+        showNavButtons: true,
+        showFilterRow: true,
+        showHeaderFilter: true
     }
   },
   created() {
@@ -69,6 +150,12 @@ export default ({
                   this.quotes = response.data;
                   console.log(response.data);
                 });
+  },
+  methods: {
+    getDetail(e){
+      console.log(e)
+      this.$router.push({ name: 'Quote Detail', params: { id: e.key } })
+    }
   }
 })
 </script>
@@ -161,9 +248,18 @@ body{
         }
   }
 
-.quotes-list {
+ .quotes-list {
     padding: 3px;
   }
+  #quotes-table {
+    margin: 30px;
+    padding: 30px;
+    
+      overflow-x:auto;
+      //margin-top: 0px;
+      border: 1px solid rgba(255,255,255,0.3);
+  }
+
   
     h1{
       font-size: 30px;
@@ -177,13 +273,15 @@ body{
       table-layout: fixed;
     }
     .quotes-table{
-      height:300px;
+      //height:300px;
       overflow-x:auto;
-      margin-top: 0px;
+      //margin-top: 0px;
       border: 1px solid rgba(255,255,255,0.3);
     }
 
     td{
+      background-color: transparent !important;
+      cursor: pointer;
       padding: 15px;
       text-align: left;
       vertical-align:middle;
@@ -195,12 +293,13 @@ body{
     }
     td:hover {
     color: lightslategray;
+    background-color: #c1fbff !important;
     } 
     
     .row:hover {
       background-color:#c1fbff;
     }
-
+    /*
     ::-webkit-scrollbar {
         width: 6px;
     } 
@@ -209,6 +308,23 @@ body{
     } 
     ::-webkit-scrollbar-thumb {
         -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3); 
-    }
+    } */
+  }
+  .dx-toolbar-items-container{
+    background-color: transparent !important;
+  }
+  .dx-toolbar{
+    background-color: transparent !important;
+  }
+
+  /* taula */
+  .dx-gridbase-container {
+    background-color: transparent;
+  }
+  .dx-datagrid {
+    border-radius: 10px;
+  }
+  .dx-editor-cell .dx-texteditor, .dx-editor-cell .dx-texteditor .dx-texteditor-input {
+    background: transparent;
   }
 </style>

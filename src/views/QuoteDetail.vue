@@ -29,6 +29,7 @@ export default ({
            axios.get('https://kimiquotes.herokuapp.com/quote/'+this.$route.params.id )
                 .then(response => {
                   this.quote = response.data;
+                  console.log(this.quote)
                 });
   }  
 })
