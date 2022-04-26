@@ -1,7 +1,7 @@
 <template>
 <div class="main">
       <router-link to="/">
-        <img src="https://raw.githubusercontent.com/sethvm/kimiquotes/main/kimi.gif" class="featured-img" />
+        <img src="https://raw.githubusercontent.com/sethvm/kimiquotes/main/kimi.gif" class="kimi-img" />
         <div class="detail">
           <p>#{{ quote.id }}</p>
           <br>
@@ -29,7 +29,6 @@ export default ({
            axios.get('https://kimiquotes.herokuapp.com/quote/'+this.$route.params.id )
                 .then(response => {
                   this.quote = response.data;
-                  console.log(response);
                 });
   }  
 })
@@ -41,7 +40,7 @@ body{
     }
 .main {
     position: relative;
-    .featured-img {
+    .kimi-img {
       display: block;
       width: 100%;
       height: 700px;

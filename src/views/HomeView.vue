@@ -2,7 +2,7 @@
 <div class="home">
     <div class="main">
       <div>
-        <img src="https://raw.githubusercontent.com/sethvm/kimiquotes/main/kimi.gif" class="featured-img" />
+        <img src="https://raw.githubusercontent.com/sethvm/kimiquotes/main/kimi.gif" class="kimi-img" />
         <div class="detail">
           <h3>Kimi Räikkönen Radio Quotes</h3>
           <p>Team radio and interview quotes by Finnish F1 legend Kimi Räikkönen.</p>
@@ -48,14 +48,13 @@ export default ({
         .then(data => {
           if (data.error !== undefined){//no quotes
               console.log(data.error)
+              alert(data.error)
               //quotes.value = data.error;
               //console.log(quotes.value)
           } else {
               console.log(data)
               quotes.value = data;
           }
-          //search.value = "";//resetting search bar
-          //console.log(quotes.value)
         })
     }
      return {
@@ -83,7 +82,7 @@ body{
 .home {
   .main {
     position: relative;
-    .featured-img {
+    .kimi-img {
       display: block;
       width: 100%;
       height: 520px;
