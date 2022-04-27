@@ -15,6 +15,12 @@
   font-family: 'Franklin Gothic Medium', sans-serif;
 }
 
+body{
+  background: -webkit-linear-gradient(left, #25b7c4, #c1fbff);
+  background: linear-gradient(to right, #25b7c4, #c1fbff);
+  font-family: 'Franklin Gothic Medium', sans-serif;
+}
+
 a {
   text-decoration: none;
 }

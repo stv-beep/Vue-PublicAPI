@@ -36,20 +36,14 @@ export default ({
 </script>
 
 <style lang="scss">
-body{
-      background-color: black;
-    }
-.main {
-    position: relative;
-    .kimi-img {
+.kimi-img { //falta mirar com queda la imatge en la cita en resolucio mes baixa
       display: block;
       width: 100%;
-      height: 700px;
+      height: 630px;
       object-fit: cover;
-      position: relative;
       z-index: 0;
-    }
-    .detail {
+}
+.detail {
       position: absolute;
       left: 0;
       right: 0;
@@ -67,6 +61,5 @@ body{
         font-size: 28px;
         font-family: 'Gill Sans', 'Gill Sans MT', sans-serif;
       }
-    }
 }
 </style>
