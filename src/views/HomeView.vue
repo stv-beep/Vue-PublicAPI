@@ -164,7 +164,7 @@ export default ({
     background-color: transparent !important;
   }
 
-  /* taula */
+  /* table */
   .dx-gridbase-container {
     background-color: transparent;
   }

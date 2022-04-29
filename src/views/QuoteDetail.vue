@@ -36,7 +36,7 @@ export default ({
 </script>
 
 <style lang="scss">
-.kimi-img { //falta mirar com queda la imatge en la cita en resolucio mes baixa
+.kimi-img {
       display: block;
       width: 100%;
       height: 630px;
